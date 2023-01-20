@@ -1,5 +1,6 @@
 from typing import Protocol
 
+from pay.credit_card import CreditCard
 from pay.order import Order
 from pay.processor import PaymentProcessor
 
@@ -9,11 +10,8 @@ class PaymentProcessor(Protocol):
         """Charges the card with the amount."""
 
 
-def pay_order(order: Order, processor: PaymentProcessor):
+def pay_order(order: Order, card: CreditCard, processor: PaymentProcessor):
     if order.total == 0:
         raise ValueError("Can't pay an order with total of 0.")
-    card = input("Please enter your card number: ")
-    month = int(input("Please enter the card expiry month: "))
-    year = int(input("Please enter the card expiry year: "))
-    processor.charge(card, month, year, amount=order.total)
+    processor.charge(card.number, card.expiry_month, card.expiry_year, amount=order.total)
     order.pay()
