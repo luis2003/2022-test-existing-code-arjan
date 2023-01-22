@@ -2,18 +2,21 @@ import pytest
 
 from pay.credit_card import CreditCard
 from pay.processor import PaymentProcessor, luhn_checksum
+from datetime import date
 
 API_KEY = "6cfb67f3-6281-4031-b893-ea85db0dce20"  # should not be committed to prod code
 
 
 @pytest.fixture
 def card() -> CreditCard:
-    return CreditCard("1249190007575069", 12, 2024)
+    year_in_future = date.today().year + 2
+    return CreditCard("1249190007575069", 12, year_in_future)
 
 
 @pytest.fixture
 def invalid_number_and_date_card() -> CreditCard:
-    return CreditCard("1249190007575068", 12, 1900)
+    year_in_past = date.today().year - 100
+    return CreditCard("1249190007575068", 12, year_in_past)
 
 
 def test_invalid_api_key(card: CreditCard) -> None:
