@@ -1,11 +1,14 @@
 import pytest
+import os
 
 from pay.credit_card import CreditCard
 from pay.processor import PaymentProcessor, luhn_checksum
 from datetime import date
+from dotenv import load_dotenv
 
-API_KEY = "6cfb67f3-6281-4031-b893-ea85db0dce20"  # should not be committed to prod code
+load_dotenv()
 
+API_KEY = os.getenv("API_KEY") or ""
 
 @pytest.fixture
 def card() -> CreditCard:
