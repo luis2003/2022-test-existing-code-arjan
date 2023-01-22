@@ -1,8 +1,7 @@
 import pytest
 
 from pay.credit_card import CreditCard
-from pay.processor import PaymentProcessor
-
+from pay.processor import PaymentProcessor, luhn_checksum
 
 API_KEY = "6cfb67f3-6281-4031-b893-ea85db0dce20"  # should not be committed to prod code
 
@@ -35,13 +34,11 @@ def test_charge_invalid_date_card(invalid_number_and_date_card: CreditCard) -> N
 
 
 def test_luhn_checksum_invalid_card() -> None:
-    processor = PaymentProcessor(API_KEY)
-    assert not processor.luhn_checksum("1249190007575068")
+    assert not luhn_checksum("1249190007575068")
 
 
 def test_luhn_checksum_valid_card() -> None:
-    processor = PaymentProcessor(API_KEY)
-    assert processor.luhn_checksum("1249190007575069")
+    assert luhn_checksum("1249190007575069")
 
 
 def test_charge_invalid_card_number(invalid_number_and_date_card) -> None:
