@@ -4,6 +4,7 @@ from _pytest.monkeypatch import MonkeyPatch
 from pay.credit_card import CreditCard
 from pay.order import Order, LineItem
 from pay.payment import pay_order
+from datetime import date
 
 
 class PaymentProcessorMock:
@@ -13,7 +14,8 @@ class PaymentProcessorMock:
 
 @pytest.fixture
 def card() -> CreditCard:
-    return CreditCard("1249190007575069", 12, 2024)
+    year = date.today().year + 2
+    return CreditCard("1249190007575069", 12, year)
 
 
 def test_pay_order(card: CreditCard) -> None:

@@ -3,7 +3,8 @@ import pytest
 from pay.credit_card import CreditCard
 from pay.processor import PaymentProcessor
 
-API_KEY = "6cfb67f3-6281-4031-b893-ea85db0dce20"  # should not be commited to prod code
+
+API_KEY = "6cfb67f3-6281-4031-b893-ea85db0dce20"  # should not be committed to prod code
 
 
 @pytest.fixture
